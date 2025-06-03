@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <title>Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300 min-h-screen flex items-center justify-center">
+    <div id="calculator" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 flex flex-col items-center transition-colors duration-300">
+        <button id="toggleDark" class="mb-4 self-end px-3 py-1 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 focus:outline-none">
+            🌙 Dark Mode
+            
+        </button>
+        <input type="text" id="display" disabled
+            class="w-56 h-12 mb-4 rounded-lg text-right px-4 text-2xl font-mono bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-inner transition-colors duration-300 outline-none" />
+        <div class="grid grid-cols-4 gap-3">
+            <button class="btn" onclick="append('7')">7</button>
+            <button class="btn" onclick="append('8')">8</button>
+            <button class="btn" onclick="append('9')">9</button>
+            <button class="btn-op" onclick="append('/')">÷</button>
+
+            <button class="btn" onclick="append('4')">4</button>
+            <button class="btn" onclick="append('5')">5</button>
+            <button class="btn" onclick="append('6')">6</button>
+            <button class="btn-op" onclick="append('*')">×</button>
+
+            <button class="btn" onclick="append('1')">1</button>
+            <button class="btn" onclick="append('2')">2</button>
+            <button class="btn" onclick="append('3')">3</button>
+            <button class="btn-op" onclick="append('-')">−</button>
+
+            <button class="btn" onclick="append('0')">0</button>
+            <button class="btn" onclick="append('.')">.</button>
+            <button class="btn-clear" onclick="clearDisplay()">C</button>
+            <button class="btn-op" onclick="append('+')">+</button>
+        </div>
+        <button class="w-56 mt-4 py-3 rounded-lg bg-blue-600 text-white text-xl font-bold shadow-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none" onclick="calculate()">=</button>
+    </div>
+    <script>
+        // Tailwind custom classes for buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.className += ' w-12 h-12 rounded-lg bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100 text-xl font-semibold shadow hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200 focus:outline-none';
+        });
+        document.querySelectorAll('.btn-op').forEach(btn => {
+            btn.className += ' w-12 h-12 rounded-lg bg-indigo-500 dark:bg-indigo-700 text-white text-xl font-bold shadow hover:bg-indigo-600 dark:hover:bg-indigo-600 transition-colors duration-200 focus:outline-none';
+        });
+        document.querySelectorAll('.btn-clear').forEach(btn => {
+            btn.className += ' w-12 h-12 rounded-lg bg-red-500 dark:bg-red-700 text-white text-xl font-bold shadow hover:bg-red-600 dark:hover:bg-red-600 transition-colors duration-200 focus:outline-none';
+        });
+
+        function append(val) {
+            document.getElementById('display').value += val;
+        }
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+        function calculate() {
+            try {
+                document.getElementById('display').value = eval(document.getElementById('display').value);
+            } catch {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        // Dark mode toggle
+        const toggleBtn = document.getElementById('toggleDark');
+        toggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if(document.documentElement.classList.contains('dark')) {
+                toggleBtn.innerHTML = '☀️ Light Mode';
+            } else {
+                toggleBtn.innerHTML = '🌙 Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html> 
